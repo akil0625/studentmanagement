@@ -1,5 +1,9 @@
-x64/
-.rar
-.vcxproj
-.filters
-.user
+.vs\
+\.vs
+.vs\*
+*.rar
+*.sln
+*.vcxproj
+*.filters
+*.user
+*.pdb

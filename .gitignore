@@ -5,3 +5,5 @@ x64/*/*
 \x64
 \x64\*
 \x64\*\*
+# Ignore the x64 directory and its subdirectories
+x64/

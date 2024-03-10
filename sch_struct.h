@@ -1,13 +1,7 @@
 #pragma once
 
 
-//学生信息
-struct STUDENT;
-typedef struct STUDENT STUDENT;
 
-//课程信息
-struct COURSE;
-typedef struct COURSE COURSE;
 
 //学院信息
 struct ACADEMY;
@@ -41,6 +35,13 @@ typedef struct thesis_link thesis_link;
 struct prize_link;
 typedef struct prize_link prize_link;
 
+//学生信息链表
+struct STUDENTS;
+typedef struct STUDENTS STUDENTS;
+
+//课程信息链表
+struct COURSES;
+typedef struct COURSES COURSES;
 
 
 
@@ -51,26 +52,7 @@ struct ID
 	struct id* next;
 };
 
-//学生信息
-struct STUDENT
-{
-	int student_number;           //学号
-	char student_name[20];        //学生姓名
-	char student_phone[12];        //学生电话
-	ID* item_head;
-	ID* thesis_head;
-	ID* prize_head;
-};
 
-//课程信息
-struct COURSE
-{
-	int course_number;								    //课程序号
-	char course_name[20];								//课程名称
-	int couese_credit;									//课程学分
-	int course_jidian;									//课程总绩点
-	int course_score;									//该课程总分数
-};
 
 //学院信息
 struct ACADEMY
@@ -140,11 +122,5 @@ struct prize_link
 
 
 
-//读取文件创建学生
-STUDENT* CreateStudent(int student_number, char* student_name, char* student_phone)
-{
-
-
-}
 
 

@@ -1,2 +1,9 @@
-﻿  main.c
-  scoremanagement.vcxproj -> E:\Codes2023\2024寒假\scoremanagement\x64\Debug\scoremanagement.exe
+﻿  OrthogonalList.c
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(305,12): warning C4133: “初始化”: 从“St_Crs *”到“STUDENTS *”的类型不兼容
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(423,1): warning C4029: 声明的形参表不同于定义
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(726,6): warning C4133: “=”: 从“id *”到“ID *”的类型不兼容
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(735,6): warning C4133: “=”: 从“id *”到“ID *”的类型不兼容
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(744,6): warning C4133: “=”: 从“id *”到“ID *”的类型不兼容
+  main.c
+  正在生成代码...
+  scoremanagement.vcxproj -> C:\Users\akil\Desktop\GitHubtest\studentmanagement\x64\Debug\scoremanagement.exe

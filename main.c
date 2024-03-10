@@ -1,5 +1,10 @@
 #include "OrthogonalList.h"
+#include "OrthogonalList.h"
 #include "sch_struct.h"
+
+
+
+
 //Ö÷º¯Êý
 int main()
 {
@@ -18,14 +23,14 @@ int main()
 	//AddScore(head, 4, 1, -2);
 	//ModifyScore(head, 4, 3, -2);
 	PrintOrthogonalList(head);
-	//struct O_students* stu4 = GetScoresOfCrs(head, 3);
-	//struct O_students* p = stu4;
-	//printf("sturs_in_3crs\n");
-	//while (p != NULL)
-	//{
-	//	printf("\tstu_id:%d\n", p->studentid);
-	//	p = p->next;
-	//}
+	struct O_students* stu4 = GetScoresOfCrs(head, 3);
+	struct O_students* p = stu4;
+	printf("sturs_in_3crs\n");
+	while (p != NULL)
+	{
+		printf("\tstu_id:%d,stu_score:%d\n", p->studentid, p->score);
+		p = p->next;
+	}
 	//struct O_courses* crs3 = GetScoresOfStu(head, 8);
 	//struct O_courses* q = crs3;
 	//printf("crs_of_8stu\n");

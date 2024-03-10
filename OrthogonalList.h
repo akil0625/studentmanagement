@@ -85,6 +85,8 @@ struct St_Crs {
 };
 //======================================== 一系列函数声明 ========================================================
  
+//初始化
+struct St_Crs* g_initStCr();
  
 //向总的十字链表添加课程
 void g_AddCourse(struct St_Crs* stcr);
@@ -94,6 +96,15 @@ void g_AddStudent(struct St_Crs* stcr);
 
 //创建十字链表
 struct OrthogonalList* CreateOrthogonalList(int* studentid, int* courseid, int* score, int ns, int nc);
+
+//销毁课程信息
+void DestroyCos(struct COURSES* h);
+
+//销毁学生信息
+void DestroySts(struct STUDENTS* h);
+
+//销毁总的十字链表
+void g_DestroySt_Crs(struct St_Crs* stcr);
 
 //销毁十字链表
 void DestroyOrthogonalList(struct OrthogonalList* head);
@@ -113,6 +124,12 @@ void AddScore(struct OrthogonalList* head, int studentid, int courseid, int scor
 //修改学生的课程成绩
 void ModifyScore(struct OrthogonalList* head, int studentid, int courseid, int score);
 
+//根据一组学生id得到依序学生信息
+STUDENTS* GetStInfo(struct O_students* ids, struct St_Crs* stcr);
+
+//根据一组课程id得到一组课程信息
+COURSES* GetCoInfo(struct O_courses* ids, struct St_Crs* stcr);
+
 //得到该学生的所有课程成绩和课程id
 struct O_courses* GetScoresOfStu(struct OrthogonalList* head, int studentid);
 
@@ -129,4 +146,7 @@ void DeleteCourse(struct OrthogonalList* head, int courseid);
 void DeleteScore(struct OrthogonalList* head, int studentid, int courseid);
 
 //保存信息到文件
-void SaveToFile(struct OrthogonalList* head, STUDENTS* h_students, COURSES* h_courses);
+void SaveToFile(struct St_Crs* stcr);
+
+//从文件读取信息
+struct St_Crs* ReadFromFile();

@@ -8,7 +8,28 @@
 //Ö÷º¯Êý
 int main()
 {
-	int studentid[] = { 1, 2, 3,7,8 };
+
+	ReadFromFile();
+	/*struct St_Crs* stcr = g_initStCr();
+	g_AddCourse(stcr);
+	g_AddCourse(stcr);
+	g_AddStudent(stcr);
+	g_AddStudent(stcr);
+	AddScore(stcr->g_head, 0, 0, -2);
+	AddScore(stcr->g_head, 0, 1, 20);
+	AddScore(stcr->g_head, 1, 0, 30);
+	AddScore(stcr->g_head, 1, 1, -2);
+	PrintOrthogonalList(stcr->g_head);
+	struct O_students * students =  GetScoresOfCrs(stcr->g_head, 0);
+	STUDENTS* stmsg = GetStInfo(students, stcr);
+	
+	SaveToFile(stcr);
+	g_DestroySt_Crs(stcr);*/
+	return 0;
+}
+
+/*
+int studentid[] = { 1, 2, 3,7,8 };
 	int courseid[] = { 1, 2,3,4 };
 
 	int score[] = { 100, -1, 4,5,
@@ -46,5 +67,4 @@ int main()
 	DeleteScore(head, 3, 1);
 	PrintOrthogonalList(head);
 	DestroyOrthogonalList(head);
-	return 0;
-}
+*/

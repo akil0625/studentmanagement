@@ -1,9 +1,12 @@
 ﻿  OrthogonalList.c
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(305,12): warning C4133: “初始化”: 从“St_Crs *”到“STUDENTS *”的类型不兼容
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(423,1): warning C4029: 声明的形参表不同于定义
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(726,6): warning C4133: “=”: 从“id *”到“ID *”的类型不兼容
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(735,6): warning C4133: “=”: 从“id *”到“ID *”的类型不兼容
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(744,6): warning C4133: “=”: 从“id *”到“ID *”的类型不兼容
-  main.c
-  正在生成代码...
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(501,3): warning C4033: “GetStInfo”必须返回值
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(515,4): warning C4033: “GetStInfo”必须返回值
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(557,3): warning C4033: “GetCoInfo”必须返回值
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(571,4): warning C4033: “GetCoInfo”必须返回值
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(850,6): warning C4133: “=”: 从“id *”到“ID *”的类型不兼容
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(858,6): warning C4133: “=”: 从“id *”到“ID *”的类型不兼容
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(866,6): warning C4133: “=”: 从“id *”到“ID *”的类型不兼容
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(950,12): warning C4013: “strcmp”未定义；假设外部返回 int
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(544): warning C4715: “GetStInfo”: 不是所有的控件路径都返回值
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(596): warning C4715: “GetCoInfo”: 不是所有的控件路径都返回值
   scoremanagement.vcxproj -> C:\Users\akil\Desktop\GitHubtest\studentmanagement\x64\Debug\scoremanagement.exe

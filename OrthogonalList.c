@@ -128,25 +128,37 @@ struct OrthogonalList* CreateOrthogonalList(int* studentid, int* courseid, int* 
 	return head;
 }
 
-//销毁总的十字链表
-void g_DestroySt_Crs(struct St_Crs* stcr)
+//销毁课程信息
+void DestroyCos(struct COURSES* h)
 {
 	struct COURSES* p, * tmpp;
-	p = stcr->g_courses;
+	p = h;
 	while (p != NULL)
 	{
 		tmpp = p;
 		p = p->next;
 		free(tmpp);
 	}
+}
+
+//销毁学生信息
+void DestroySts(struct STUDENTS* h)
+{
 	struct STUDENTS* q, * tmpq;
-	q = stcr->g_students;
+	q = h;
 	while (q != NULL)
 	{
 		tmpq = q;
 		q = q->next;
 		free(tmpq);
 	}
+}
+
+//销毁总的十字链表
+void g_DestroySt_Crs(struct St_Crs* stcr)
+{
+	DestroyCos(stcr->g_courses);
+	DestroySts(stcr->g_students);
 	DestroyOrthogonalList(stcr->g_head);
 	free(stcr);
 }
@@ -285,10 +297,9 @@ void g_AddCourse(struct St_Crs* stcr)
 		return;
 	}
 	p = p->next;
-	printf("请输入课程id：\n");
-	int tmp = scanf("%d", &(p->course.course_number));//课程id
+	p->next = NULL;
 	printf("请输入课程名：\n");
-	tmp = scanf("%s", p->course.course_name);//课程名
+	int tmp = scanf("%s", p->course.course_name);//课程名
 	printf("请输入绩点：\n");
 	tmp = scanf("%d", &(p->course.course_jidian));//绩点
 	printf("请输入课程学分\n");
@@ -296,13 +307,14 @@ void g_AddCourse(struct St_Crs* stcr)
 	printf("请输入课程总分：\n");
 	tmp = scanf("%d", &(p->course.course_score));//课程总分
 	AddCourse(stcr->g_head, stcr->co_num);
+	p->course.course_number = stcr->co_num;//课程id
 	stcr->co_num++;
 }
 
 //向总的十字链表添加学生
 void g_AddStudent(struct St_Crs* stcr)
 {
-	STUDENTS* p = stcr;
+	STUDENTS* p = stcr->g_students;
 	if (p == NULL)
 		return;
 	while (p->next != NULL)
@@ -316,6 +328,7 @@ void g_AddStudent(struct St_Crs* stcr)
 		return;
 	}
 	p = p->next;
+	p->next = NULL;
 	p->student.item_head = (ID*)malloc(sizeof(ID));//项目信息
 	if (p->student.item_head == NULL)
 		return;
@@ -419,7 +432,7 @@ void AddScore(struct OrthogonalList* head, int studentid, int courseid, int scor
 }
 
 //修改学生的课程成绩
-void ModifyScore(struct OrthogonalList* head, int studentid, int courseid, int score,int isteacher)
+void ModifyScore(struct OrthogonalList* head, int studentid, int courseid, int score)
 {
 	struct OrthogonalList* ps, * pc;
 
@@ -472,6 +485,114 @@ void ModifyScore(struct OrthogonalList* head, int studentid, int courseid, int s
 		printf("没有该学生的该课程\n");
 		return;
 	}
+}
+
+//根据一组学生id得到依序学生信息
+STUDENTS* GetStInfo(struct O_students* ids, struct St_Crs* stcr)
+{
+	STUDENTS* sth = stcr->g_students->next;
+	
+	struct O_students* idh = ids;
+
+	STUDENTS* ans = (STUDENTS*)malloc(sizeof(STUDENTS));
+	if (ans == NULL)
+	{
+		printf("空间开辟失败");
+		return;//空间开辟失败
+	}
+	STUDENTS* p = ans;
+	while (idh != NULL)
+	{
+		STUDENTS* stp = sth;
+		while (stp != NULL && stp->student.student_number != idh->studentid)
+		{
+			stp = stp->next;
+		}
+		p->next = (STUDENTS*)malloc(sizeof(STUDENTS));
+		if (p->next == NULL)
+		{
+			printf("空间开辟失败");
+			return;//空间开辟失败
+		}
+		p = p->next;
+		if (stp == NULL)//没找到该学生信息
+		{
+			p->student.student_number = -1;
+		}
+		else //找到了
+		{
+			p->student.item_head = stp->student.item_head;
+			p->student.prize_head = stp->student.prize_head;
+			p->student.thesis_head = stp->student.thesis_head;
+			p->student.student_number = stp->student.student_number;
+			for (int i = 0; i < 20; i++)
+			{
+				p->student.student_name[i] = stp->student.student_name[i];
+			}
+			for (int i = 0; i < 12; i++)
+			{
+				p->student.student_phone[i] = stp->student.student_phone[i];
+			}
+		}
+		idh = idh->next;
+	}
+	p->next = NULL;
+	p = ans;
+	ans = ans->next;
+	free(p);
+	return ans;
+}
+
+//根据一组课程id得到一组课程信息
+COURSES* GetCoInfo(struct O_courses* ids, struct St_Crs* stcr)
+{
+	COURSES* coh = stcr->g_courses->next;
+
+	struct O_courses* idh = ids;
+
+	COURSES* ans = (COURSES*)malloc(sizeof(COURSES));
+	if (ans == NULL)
+	{
+		printf("空间开辟失败");
+		return;//空间开辟失败
+	}
+	COURSES* p = ans;
+	while (idh != NULL)
+	{
+		COURSES* cop = coh;
+		while (cop != NULL && cop->course.course_number != idh->courseid)
+		{
+			cop = cop->next;
+		}
+		p->next = (COURSES*)malloc(sizeof(COURSES));
+		if (p->next == NULL)
+		{
+			printf("空间开辟失败");
+			return;//空间开辟失败
+		}
+		p = p->next;
+		if (cop == NULL)//没找到该学生信息
+		{
+			p->course.course_number = -1;
+		}
+		else //找到了
+		{
+			p->course.couese_credit = cop->course.couese_credit;
+			p->course.course_jidian = cop->course.course_jidian;
+			p->course.course_number = cop->course.course_number;
+			p->course.course_score = cop->course.course_score;
+			for (int i = 0; i < 20; i++)
+			{
+				p->course.course_name[i] = cop->course.course_name[i];
+			}
+		}
+		idh = idh->next;
+	}
+	p->next = NULL;
+	p = ans;
+	ans = ans->next;
+	free(p);
+	return ans;
 }
 
 //得到学生的课程成绩
@@ -698,8 +819,11 @@ void DeleteScore(struct OrthogonalList* head, int studentid, int courseid)
 }
 
 //保存信息到文件
-void SaveToFile(struct OrthogonalList* head, STUDENTS* h_students, COURSES* h_courses)
+void SaveToFile(struct St_Crs* stcr)
 {
+	struct OrthogonalList* head = stcr->g_head;
+	STUDENTS* h_students = stcr->g_students;
+	COURSES* h_courses = stcr->g_courses;
 	FILE* fp;
 	fp = fopen("st_co.dat", "w");
 	if (fp == NULL)
@@ -708,12 +832,12 @@ void SaveToFile(struct OrthogonalList* head, STUDENTS* h_students, COURSES* h_co
 		return;
 	}
 	//保存学生信息
-	STUDENTS* stup = h_students;
-	fprintf(fp, "students\n");//标志着开始写入学生信息
+	STUDENTS* stup = h_students->next;
+	fprintf(fp, "students %d\n",stcr->stu_num);//标志着开始写入学生信息
 	while (stup != NULL)
 	{
 		//首先带第一行保存由空格分开的 学号 姓名 电话号
-		fprintf(fp, "%d %s %s \n",
+		fprintf(fp, "s %d %s %s \n",
 			stup->student.student_number, 
 			stup->student.student_name,
 			stup->student.student_phone);
@@ -722,37 +846,35 @@ void SaveToFile(struct OrthogonalList* head, STUDENTS* h_students, COURSES* h_co
 		ID* q = stup->student.item_head;
 		while (q != NULL)
 		{
-			fprintf(fp, "%d ", q->id);
+			fprintf(fp, "i %d \n", q->id);
 			q = q->next;
 		}
-		fprintf(fp, "\n");
 
 		//再在下下一行保存论文id
 		q = stup->student.thesis_head;
 		while (q != NULL)
 		{
-			fprintf(fp, "%d ", q->id);
+			fprintf(fp, "t %d \n", q->id);
 			q = q->next;
 		}
-		fprintf(fp, "\n");
 
 		//再在下下下一行保存得奖id
 		q = stup->student.prize_head;
 		while (q != NULL)
 		{
-			fprintf(fp, "%d ", q->id);
+			fprintf(fp, "p %d \n", q->id);
 			q = q->next;
 		}
-		fprintf(fp, "\n");
 		stup = stup->next;
 	}
 
+	fprintf(fp, "courses %d\n",stcr->co_num);//标志着开始写入学生信息
 	//保存科目信息
-	COURSES* cop = h_courses;
+	COURSES* cop = h_courses->next;
 	while (cop != NULL)
 	{
 		//首先带第一行保存由空格分开的 学号 姓名 电话号
-		fprintf(fp, "%d %s %d %d %d \n",
+		fprintf(fp, "c %d %s %d %d %d \n",
 			cop->course.course_number,
 			cop->course.course_name,
 			cop->course.course_jidian,
@@ -764,7 +886,7 @@ void SaveToFile(struct OrthogonalList* head, STUDENTS* h_students, COURSES* h_co
 	//保存学生的课程成绩
 	struct OrthogonalList* p, * q;
 	p = head;
-
+	fprintf(fp, "scores\n");//标志着开始写入学生信息
 	while (p != NULL)//p指向学生节点，一直往下移动
 	{
 		q = p;
@@ -801,3 +923,47 @@ void SaveToFile(struct OrthogonalList* head, STUDENTS* h_students, COURSES* h_co
 
 	fclose(fp);
 }
+
+struct St_Crs* ReadFromFile()
+{
+	FILE* fp;
+	char strLine[1024];								//读取缓冲区
+	if ((fp = fopen("st_co.dat", "r")) == NULL)		//判断文件是否存在及可读
+	{
+		printf("Open Falied!");
+		return NULL;
+	}
+	int tmp = 0;
+
+	char readedstr[20];
+	int readedint = 0;
+
+	struct St_Crs* ans = g_initStCr();
+
+
+	while (!feof(fp))									//循环读取每一行，直到文件尾
+	{
+		fgets(strLine, 1024, fp);					    //将fp所指向的文件一行内容读到strLine缓冲区
+		//将strLine转换为输入流
+		tmp = sscanf(strLine, "%s", readedstr);					//输出所读到的内容
+		
+		if (0 == strcmp(readedstr, "s"));
+
+		if (0 == strcmp(readedstr,"students"));
+		{
+			tmp = sscanf(strLine, "%s%d", readedstr, &readedint);
+			ans->stu_num;
+		}
+		if (0==strcmp(readedstr, "courses"))
+		{
+			tmp = sscanf(strLine, "%s%d", readedstr, &readedint);
+			ans->co_num = readedint;
+			break;
+		}
+	}
+
+
+	fclose(fp);											//关闭文件
+	return NULL;
+}
+

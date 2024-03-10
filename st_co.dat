@@ -1,0 +1,14 @@
+students 2
+s 0 akil 186 
+i -1 
+t -1 
+p -1 
+s 1 akil 190 
+i -1 
+t -1 
+p -1 
+courses 2
+c 0 shu 4 10 100 
+c 1 yu 4 15 200 
+scores
+-2 20 30 -2 

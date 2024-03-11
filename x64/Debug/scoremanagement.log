@@ -1,12 +1,5 @@
-﻿  OrthogonalList.c
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(501,3): warning C4033: “GetStInfo”必须返回值
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(515,4): warning C4033: “GetStInfo”必须返回值
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(557,3): warning C4033: “GetCoInfo”必须返回值
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(571,4): warning C4033: “GetCoInfo”必须返回值
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(850,6): warning C4133: “=”: 从“id *”到“ID *”的类型不兼容
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(858,6): warning C4133: “=”: 从“id *”到“ID *”的类型不兼容
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(866,6): warning C4133: “=”: 从“id *”到“ID *”的类型不兼容
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(950,12): warning C4013: “strcmp”未定义；假设外部返回 int
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(544): warning C4715: “GetStInfo”: 不是所有的控件路径都返回值
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\OrthogonalList.c(596): warning C4715: “GetCoInfo”: 不是所有的控件路径都返回值
+﻿  main.c
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\main.c(230,4): warning C4013: “g_PrintStCr”未定义；假设外部返回 int
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\main.c(251,4): warning C4013: “system”未定义；假设外部返回 int
+  LINK : 没有找到 C:\Users\akil\Desktop\GitHubtest\studentmanagement\x64\Debug\scoremanagement.exe 或上一个增量链接没有生成它；正在执行完全链接
   scoremanagement.vcxproj -> C:\Users\akil\Desktop\GitHubtest\studentmanagement\x64\Debug\scoremanagement.exe

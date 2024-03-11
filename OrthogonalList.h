@@ -119,7 +119,7 @@ void AddCourse(struct OrthogonalList* head, int courseid);
 void AddStudent(struct OrthogonalList* head, int studentid);
 
 //添加学生到课程 score=-2表示暂无成绩
-void AddScore(struct OrthogonalList* head, int studentid, int courseid, int score);
+void AddScore(struct St_Crs* stcr, int studentid, int courseid, int score);
 
 //修改学生的课程成绩
 void ModifyScore(struct OrthogonalList* head, int studentid, int courseid, int score);
@@ -134,7 +134,13 @@ COURSES* GetCoInfo(struct O_courses* ids, struct St_Crs* stcr);
 struct O_courses* GetScoresOfStu(struct OrthogonalList* head, int studentid);
 
 //得到该课程的所有学生成绩和学生id
-struct O_students* GetScoresOfCrs(struct OrthogonalList* head, int courseid);
+struct O_students* GetScoresOfCrs(struct OrthogonalList* head, int courseid, int byorder);
+
+//从总的十字链条删除学生
+void g_DeleteStudent(struct St_Crs* stcr, int studentid);
+
+//从总的十字链条删除课程
+void g_DeleteCourse(struct St_Crs* stcr, int courseid);
 
 //删除学生
 void DeleteStudent(struct OrthogonalList* head, int studentid);

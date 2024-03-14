@@ -83,7 +83,12 @@ struct St_Crs {
 	COURSES* g_courses;
 	struct OrthogonalList* g_head;
 };
+//======================================== 外部变量声明   ========================================================
+extern struct St_Crs* stcr;
+
+
 //======================================== 一系列函数声明 ========================================================
+
  
 //初始化
 struct St_Crs* g_initStCr();
@@ -108,6 +113,9 @@ void g_DestroySt_Crs(struct St_Crs* stcr);
 
 //销毁十字链表
 void DestroyOrthogonalList(struct OrthogonalList* head);
+
+//打印总链表
+void g_PrintStCr(struct St_Crs* stcr, int sbegin, int cbegin);
 
 //打印十字链表
 void PrintOrthogonalList(struct OrthogonalList* head);

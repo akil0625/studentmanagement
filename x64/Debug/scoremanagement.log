@@ -1,5 +1,4 @@
-﻿  main.c
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\main.c(230,4): warning C4013: “g_PrintStCr”未定义；假设外部返回 int
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\main.c(251,4): warning C4013: “system”未定义；假设外部返回 int
-  LINK : 没有找到 C:\Users\akil\Desktop\GitHubtest\studentmanagement\x64\Debug\scoremanagement.exe 或上一个增量链接没有生成它；正在执行完全链接
+﻿  manager.c
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\manager.c(78,2): warning C4013: “system”未定义；假设外部返回 int
+C:\Users\akil\Desktop\GitHubtest\studentmanagement\manager.c(382): warning C4716: “managerlogin”: 必须返回一个值
   scoremanagement.vcxproj -> C:\Users\akil\Desktop\GitHubtest\studentmanagement\x64\Debug\scoremanagement.exe

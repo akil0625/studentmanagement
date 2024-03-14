@@ -24,12 +24,18 @@
     <ClCompile Include="sch_struct.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="manager.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="OrthogonalList.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="sch_struct.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="manager.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

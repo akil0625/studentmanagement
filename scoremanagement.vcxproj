@@ -128,10 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="manager.c" />
     <ClCompile Include="OrthogonalList.c" />
     <ClCompile Include="sch_struct.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="manager.h" />
     <ClInclude Include="OrthogonalList.h" />
     <ClInclude Include="sch_struct.h" />
   </ItemGroup>

@@ -185,56 +185,92 @@ void DestroyOrthogonalList(struct OrthogonalList* head)
 }
 
 //打印总链表
-void g_PrintStCr(struct St_Crs* stcr)
+void g_PrintStCr(struct St_Crs* stcr, int sbegin, int cbegin)
 {
+	int width = 7;
+	int height = 10;
+	int rwidth = stcr->co_num - cbegin - width + 1 < 0 ? stcr->co_num - cbegin + 2 : width + 1;
+	int si = 0;
+	int ci = 0;
 	struct OrthogonalList* p, * q;
 	STUDENTS* sp = stcr->g_students;
 	COURSES* cp = stcr->g_courses;
 	p = stcr->g_head;
-
+	for (int i = 0; i < rwidth* 14; i++)
+	{
+		printf("-");
+	}
+	printf("\n");
 	while (p != NULL)
 	{
 		q = p;
+		ci = 0;
 		struct OrthogonalList* pco = stcr->g_head;
+		if (p->studentid == -1 || (si >= sbegin && si < sbegin + height))//这是课程或是在打印范围内的学生
 		while (q != NULL)
 		{
-			if (q->studentid != -1 && q->courseid != -1)
+			if (q->studentid != -1 && q->courseid != -1)//这是成绩
 			{
-				if (q->courseid != pco->courseid)
+				if (q->courseid != pco->courseid)//没有对其上时表示读课程的指针跑的比读成绩的指针跑慢了
 				{
-					while (pco != NULL && pco->courseid != q->courseid)
+					while (pco != NULL && pco->courseid != q->courseid)//在没有跑到头之前追回来
 					{
+						if (ci >= cbegin && ci < cbegin + width)
+						printf("%11s  |", " ");//q越过的部分代表没有关联，打印空格
 						pco = pco->right;
-						printf("               ");
+						ci++;
 					}
 				}
-				if (q->score != -2)
-					printf("%10d分   ", q->score);
+				if (ci >= cbegin && ci < cbegin + width)
+				if (q->score != -2)//追上来后补上成绩
+					printf("%9d分  |", q->score);
 				else
-					printf("      暂无成绩 ");
+					printf("%11s  |", "暂无成绩");
 
 			}
-			else if (q->studentid == -1 && q->courseid != -1)
+			else if (q->studentid == -1 && q->courseid != -1)//代表遇上了课程，需要该课程在打印范围内
 			{
-				printf("%10s   ", cp->course.course_name);
+				if (ci >= cbegin && ci < cbegin + width)
+				printf("%11s  |", cp->course.course_name);
 			}
-			else if (q->studentid != -1 && q->courseid == -1)
+			else if (q->studentid != -1 && q->courseid == -1)//代表遇上了学生，无条件放行
 			{
-				printf("%10s   ", sp->student.student_name);
+				printf("%11s  |", sp->student.student_name);
 			}
-			else
+			else//代表遇上了表头
 			{
-				printf("                ");
+				printf("%11s  |", "学生\\课程");///表头
 			}
 			q = q->right;
 			if (p->studentid == -1)
 				cp = cp->next;
 			if (pco != NULL)
-				pco = pco->right;;
+			{
+				pco = pco->right;
+				ci++;
+			}
 		}
-		printf("\n");
+		if (p->studentid == -1 || (si >= sbegin && si < sbegin + 10))
+		{
+			while (pco != NULL)//pco没走到头的部分
+			{
+				if (ci >= cbegin && ci < cbegin + width)
+				printf("%11s  |", " ");
+				pco = pco->right;
+				ci++;
+			}
+			printf("\n");
+			for (int i = 0; i < rwidth * 14; i++)
+			{
+				printf("-");
+			}
+			printf("\n");
+		}
 		p = p->down;
 		sp = sp->next;
+		si++;
+		
+
 	}
 }
 
@@ -931,6 +967,7 @@ void g_DeleteStudent(struct St_Crs* stcr, int studentid)
 		}
 		sp = sp->next;
 	}
+	DeleteStudent(stcr->g_head, studentid);
 }
 
 //从总的十字链条删除课程

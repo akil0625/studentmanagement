@@ -89,10 +89,10 @@ extern struct St_Crs* stcr;
 
 //======================================== 一系列函数声明 ========================================================
 
- 
+
 //初始化
 struct St_Crs* g_initStCr();
- 
+
 //向总的十字链表添加课程
 void g_AddCourse(struct St_Crs* stcr);
 

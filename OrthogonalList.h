@@ -33,10 +33,10 @@ struct STUDENT
 struct COURSE
 {
 	int course_number;								    //课程序号
+	float couese_credit;									//课程学分
+	float course_jidian;									//课程总绩点
+	float course_score;									//该课程总分数
 	char course_name[20];								//课程名称
-	int couese_credit;									//课程学分
-	int course_jidian;									//课程总绩点
-	int course_score;									//该课程总分数
 };
 
 //学生链表信息
@@ -56,21 +56,21 @@ struct COURSES
 //学生ID和score链表
 struct O_students {
 	int studentid;
-	int score;
+	float score;
 	struct O_students* next;
 };
 
 //课程ID和score链表
 struct O_courses {
 	int courseid;
-	int score;
+	float score;
 	struct O_courses* next;
 };
 
 //十字链表，存储学生和课程的关系
 struct OrthogonalList {//定义结构体
 	int studentid, courseid;
-	int score;
+	float score;
 	struct OrthogonalList* right;
 	struct OrthogonalList* down;
 };
@@ -100,7 +100,7 @@ void g_AddCourse(struct St_Crs* stcr);
 void g_AddStudent(struct St_Crs* stcr);
 
 //创建十字链表
-struct OrthogonalList* CreateOrthogonalList(int* studentid, int* courseid, int* score, int ns, int nc);
+struct OrthogonalList* CreateOrthogonalList(int* studentid, int* courseid, float* score, int ns, int nc);
 
 //销毁课程信息
 void DestroyCos(struct COURSES* h);
@@ -127,10 +127,10 @@ void AddCourse(struct OrthogonalList* head, int courseid);
 void AddStudent(struct OrthogonalList* head, int studentid);
 
 //添加学生到课程 score=-2表示暂无成绩
-void AddScore(struct St_Crs* stcr, int studentid, int courseid, int score);
+void AddScore(struct St_Crs* stcr, int studentid, int courseid, float score);
 
 //修改学生的课程成绩
-void ModifyScore(struct OrthogonalList* head, int studentid, int courseid, int score);
+void ModifyScore(struct OrthogonalList* head, int studentid, int courseid, float score);
 
 //根据一组学生id得到依序学生信息
 STUDENTS* GetStInfo(struct O_students* ids, struct St_Crs* stcr);

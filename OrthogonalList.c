@@ -45,7 +45,7 @@ struct St_Crs* g_initStCr()
 }
 
 //创建十字链表
-struct OrthogonalList* CreateOrthogonalList(int* studentid, int* courseid, int* score, int ns, int nc)
+struct OrthogonalList* CreateOrthogonalList(int* studentid, int* courseid, float* score, int ns, int nc)
 {
 	struct OrthogonalList* head, * p, * q;
 	int i;
@@ -223,7 +223,7 @@ void g_PrintStCr(struct St_Crs* stcr, int sbegin, int cbegin)
 					}
 					if (ci >= cbegin && ci < cbegin + width)
 						if (q->score != -2)//追上来后补上成绩
-							printf("%9d分  |", q->score);
+							printf("%9.2f分  |", q->score);
 						else
 							printf("%11s  |", "暂无成绩");
 
@@ -297,7 +297,7 @@ void PrintOrthogonalList(struct OrthogonalList* head)
 					}
 				}
 				if (q->score != -2)
-					printf("%10d分   ", q->score);
+					printf("%10f分   ", q->score);
 				else
 					printf("      暂无成绩 ");
 
@@ -425,11 +425,11 @@ void g_AddCourse(struct St_Crs* stcr)
 	printf("请输入课程名：\n");
 	int tmp = scanf("%s", p->course.course_name);//课程名
 	printf("请输入绩点：\n");
-	tmp = scanf("%d", &(p->course.course_jidian));//绩点
+	tmp = scanf("%f", &(p->course.course_jidian));//绩点
 	printf("请输入课程学分\n");
-	tmp = scanf("%d", &(p->course.couese_credit));//课程学分
+	tmp = scanf("%f", &(p->course.couese_credit));//课程学分
 	printf("请输入课程总分：\n");
-	tmp = scanf("%d", &(p->course.course_score));//课程总分
+	tmp = scanf("%f", &(p->course.course_score));//课程总分
 	p->course.course_number = idnum == -1 ? stcr->co_num : idnum;//课程id
 	AddCourse(stcr->g_head, idnum == -1 ? stcr->co_num : idnum);
 	stcr->co_num++;
@@ -509,7 +509,7 @@ int inleft(int* nums, int size, int num)
 }
 
 //添加学生到课程 score=-2表示暂无成绩
-void AddScore(struct St_Crs* stcr, int studentid, int courseid, int score)
+void AddScore(struct St_Crs* stcr, int studentid, int courseid, float score)
 {
 	struct OrthogonalList* head = stcr->g_head;
 	if (head == NULL)
@@ -607,7 +607,7 @@ void AddScore(struct St_Crs* stcr, int studentid, int courseid, int score)
 }
 
 //修改学生的课程成绩
-void ModifyScore(struct OrthogonalList* head, int studentid, int courseid, int score)
+void ModifyScore(struct OrthogonalList* head, int studentid, int courseid, float score)
 {
 	struct OrthogonalList* ps, * pc;
 
@@ -633,7 +633,7 @@ void ModifyScore(struct OrthogonalList* head, int studentid, int courseid, int s
 		return;
 	}
 
-	while (ps->right != NULL && ps->right->courseid < courseid)
+	while (ps->right != NULL && ps->right->courseid != courseid)
 	{
 		ps = ps->right;
 	}
@@ -647,7 +647,7 @@ void ModifyScore(struct OrthogonalList* head, int studentid, int courseid, int s
 		return;
 	}
 
-	while (pc->down != NULL && pc->down->studentid < studentid)
+	while (pc->down != NULL && pc->down->studentid != studentid)
 	{
 		pc = pc->down;
 	}
@@ -1122,7 +1122,7 @@ void SaveToFile(struct St_Crs* stcr)
 	while (cop != NULL)
 	{
 		//首先带第一行保存由空格分开的 学号 姓名 电话号
-		fprintf(fp, "c %d %s %d %d %d \n",
+		fprintf(fp, "c %d %s %f %f %f \n",
 			cop->course.course_number,
 			cop->course.course_name,
 			cop->course.course_jidian,
@@ -1152,7 +1152,7 @@ void SaveToFile(struct St_Crs* stcr)
 					}
 				}
 				//如果成绩不是-2，说明存在成绩，无论存不存在成绩，都要写入
-				fprintf(fp, "%d \n", q->score);
+				fprintf(fp, "%f \n", q->score);
 
 			}
 			else if (q->studentid == -1 && q->courseid != -1) {}//此种情况表示，此点不是成绩节点，不需要写入
@@ -1326,7 +1326,7 @@ struct St_Crs* ReadFromFile()
 				return NULL;
 			}
 			cp = cp->next;
-			tmp = sscanf(strLine, "%s%d%s%d%d%d", readedstr,
+			tmp = sscanf(strLine, "%s%d%s%f%f%f", readedstr,
 				&(cp->course.course_number),
 				cp->course.course_name,
 				&(cp->course.course_jidian),
@@ -1339,7 +1339,7 @@ struct St_Crs* ReadFromFile()
 			break;
 		}
 	}
-	int* scores = (int*)malloc(sizeof(int) * ans->stu_num * ans->co_num);
+	float* scores = (float*)malloc(sizeof(float) * ans->stu_num * ans->co_num);
 	if (scores == NULL)
 	{
 		printf("内存分配失败\n");
@@ -1352,7 +1352,7 @@ struct St_Crs* ReadFromFile()
 		tmp = sscanf(strLine, "%s", readedstr);
 		if (strcmp(readedstr, "eof") == 0)
 			break;
-		tmp = sscanf(strLine, "%d", scores + i);
+		tmp = sscanf(strLine, "%f", scores + i);
 		i++;
 	}
 	int* studentid = (int*)malloc(sizeof(int) * ans->stu_num);

@@ -139,7 +139,7 @@ void showco(int together)
 	printf("%14s   |%8s   |%12s  |%12s  |%12s  |\n", "课程名", "课程id", "绩点", "课程学分", "课程总分");
 	while (q != NULL)
 	{
-		printf("%14s   |%8d   |%12d  |%12d  |%12d  |\n", q->course.course_name, q->course.course_number, q->course.course_jidian, q->course.couese_credit, q->course.course_score);
+		printf("%14s   |%8d   |%12.2f  |%12.2f  |%12.2f  |\n", q->course.course_name, q->course.course_number, q->course.course_jidian, q->course.couese_credit, q->course.course_score);
 		q = q->next;
 	}
 	printf("---------------------------------------------------------------------------\n\n");
@@ -177,12 +177,14 @@ void ShowInformation()
 		case 'W':
 		case 'w':
 			if (stcr->stu_num - sbegin - 10 + 1 >= 0)
-				sbegin += 1;
+				sbegin += 5;
 			break;
 		case 'S':
 		case 's':
-			if (sbegin != 1)
-				sbegin -= 1;
+			if (sbegin != 5)
+				sbegin -= 5;
+			if(sbegin<1)
+				sbegin = 1;
 			break;
 		case '0':
 			input = 0;
@@ -208,7 +210,7 @@ void informasionsortedbycourse(int cid)
 	}
 	if(cop!=NULL)
 	{
-		printf("课程id:%d 课程名:%s 课程绩点:%d 课程学分:%d 课程总成绩:%d\n", cid,
+		printf("课程id:%d 课程名:%s 课程绩点:%f 课程学分:%f 课程总成绩:%.2f\n", cid,
 			cop->course.course_name, cop->course.course_jidian, cop->course.couese_credit, cop->course.course_score);
 		printf("-------------------------------------------\n");
 	}
@@ -219,7 +221,7 @@ void informasionsortedbycourse(int cid)
 	printf("%8s   |%14s   |%9s   |\n","学生id","学生姓名","学生成绩");
 	while (p != NULL)
 	{
-		printf("%8d   |%14s   |%9d   |\n", p->studentid, q->student.student_name, p->score);
+		printf("%8d   |%14s   |%9.2f   |\n", p->studentid, q->student.student_name, p->score);
 		p = p->next;
 		q = q->next;
 	}
@@ -267,7 +269,7 @@ void SortByCourse()
 void SortByEvaluation()
 {
 	//构建所有课程的数组，以方便快速访问
-	COURSES* courses = stcr->g_courses;
+	COURSES* courses = stcr->g_courses->next;
 	COURSE * course_arr = (COURSE*)malloc(sizeof(COURSE) * stcr->co_num);
 	if (course_arr == NULL || courses == NULL)
 	{
@@ -313,7 +315,7 @@ void SortByEvaluation()
 	}
 	//student_ps和students_ifp对应使用，排序时需要同时改变两个数组的值
 	//计算所有学生的综合成绩
-	int* student_score = (int*)malloc(sizeof(int) * stcr->stu_num);
+	float* student_score = (float*)malloc(sizeof(float) * stcr->stu_num);
 	if (student_score == NULL)
 	{
 		printf("开辟空间失败\n");
@@ -343,7 +345,48 @@ void SortByEvaluation()
 		else
 			student_score[i] /= sum_credit;//综合分
 	}
+	//排序
+	for (int i = 1; i < stcr->stu_num; i++)
+	{
+		for(int j = 0;j<stcr->stu_num-i;j++)
+		{
+			if(student_score[j]> student_score[j + 1])
+			{
+				//交换成绩
+				float tmp = student_score[j];
+				student_score[j] = student_score[j+1];
+				student_score[j+1] = tmp;
+				
+				//交换学生id和成绩
+				struct OrthogonalList* tmp1 = student_ps[j];
+				student_ps[j] = student_ps[j + 1];
+				student_ps[j + 1] = tmp1;
 
+				//交换学生信息
+				STUDENTS* tmp2 = students_ifp[j];
+				students_ifp[j] = students_ifp[j + 1];
+				students_ifp[j + 1] = tmp2;
+			}
+		}
+	}
+	//显示
+	printf("-------------------------------------------\n");
+	printf("%8s   |%14s   |%9s   |\n","学生id","学生姓名","综合成绩");
+	printf("-------------------------------------------\n");
+	for(int i = 0;i<stcr->stu_num;i++)
+	{
+		printf("%8d   |%14s   |%9f   |\n", student_ps[i]->studentid, students_ifp[i]->student.student_name, student_score[i]);
+	}
+	printf("-------------------------------------------\n");
+	printf("%8s   |%14s   |%9s   |\n", "学生id", "学生姓名", "综合成绩");
+	printf("-------------------------------------------\n");
+	//释放空间
+	free(student_ps);
+	free(students_ifp);
+	free(student_score);
+	free(course_arr);
+	system("pause");
+	system("cls");
 }
 void ShowEvaluationByClass()
 {
@@ -404,14 +447,14 @@ void addsc()
 {
 	int studentid = 0;
 	int courseid = 0;
-	int score = 0;
+	float score = 0;
 	int tmp = 0;
 	printf("请输入选取的学生id\n");
 	tmp = scanf("%d", &studentid);
 	printf("请输入选取的课程id\n");
 	tmp = scanf("%d", &courseid);
 	printf("请输入成绩,输入-2表示暂无成绩\n");
-	tmp = scanf("%d", &score);
+	tmp = scanf("%f", &score);
 	AddScore(stcr, studentid, courseid, score);
 	printf("添加成功\n");
 	//system("pause");
@@ -457,13 +500,13 @@ void modstuco()
 	int tmp = 0;
 	int courseid = 0;
 	int studentid = 0;
-	int score = 0;
+	float score = 0;
 	printf("请输入选取的学生id\n");
 	tmp = scanf("%d", &studentid);
 	printf("请输入选取的课程id\n");
 	tmp = scanf("%d", &courseid);
 	printf("请输入修改后的成绩\n");
-	tmp = scanf("%d", &score);
+	tmp = scanf("%f", &score);
 	ModifyScore(stcr->g_head, studentid, courseid, score);
 	printf("修改成功\n");
 	system("pause");
@@ -629,7 +672,7 @@ void initmanager()
 		if (0 == strcmp("info", readedstr))//作比较
 		{
 			p->next = (MANAGERACOUNT*)malloc(sizeof(MANAGERACOUNT));
-			if (manager_h == NULL)
+			if (p->next == NULL)
 			{
 				printf("开辟空间失败\n");
 				return;

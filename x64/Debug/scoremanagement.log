@@ -1,4 +1,10 @@
 ﻿  manager.c
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\manager.c(78,2): warning C4013: “system”未定义；假设外部返回 int
-C:\Users\akil\Desktop\GitHubtest\studentmanagement\manager.c(382): warning C4716: “managerlogin”: 必须返回一个值
-  scoremanagement.vcxproj -> C:\Users\akil\Desktop\GitHubtest\studentmanagement\x64\Debug\scoremanagement.exe
+C:\Users\akil\Desktop\GitHubtest\studentmanagement - 副本\manager.c(118,2): warning C4013: “system”未定义；假设外部返回 int
+C:\Users\akil\Desktop\GitHubtest\studentmanagement - 副本\manager.c(202,57): warning C4020: “GetStInfo”: 实参太多
+C:\Users\akil\Desktop\GitHubtest\studentmanagement - 副本\manager.c(285,3): warning C4013: “strcpy”未定义；假设外部返回 int
+C:\Users\akil\Desktop\GitHubtest\studentmanagement - 副本\manager.c(340,41): warning C4244: “+=”: 从“float”转换到“int”，可能丢失数据
+C:\Users\akil\Desktop\GitHubtest\studentmanagement - 副本\manager.c(672,12): warning C4013: “strcmp”未定义；假设外部返回 int
+C:\Users\akil\Desktop\GitHubtest\studentmanagement - 副本\manager.c(702,11): warning C4013: “checkuser”未定义；假设外部返回 int
+C:\Users\akil\Desktop\GitHubtest\studentmanagement - 副本\manager.c(762,7): warning C4013: “strlen”未定义；假设外部返回 int
+C:\Users\akil\Desktop\GitHubtest\studentmanagement - 副本\manager.c(1011): warning C4716: “managerlogin”: 必须返回一个值
+  scoremanagement.vcxproj -> C:\Users\akil\Desktop\GitHubtest\studentmanagement - 副本\x64\Debug\scoremanagement.exe

@@ -1,1 +1,2 @@
 C:\Users\akil\Desktop\GitHubtest\studentmanagement\x64\Debug\scoremanagement.exe
+C:\Users\akil\Desktop\GitHubtest\studentmanagement - 副本\x64\Debug\scoremanagement.exe
